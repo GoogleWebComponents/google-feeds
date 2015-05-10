@@ -12,17 +12,25 @@
 
 </head>
 <body>
-  <google-feeds feed="http://feeds.feedburner.com/hypebeast/feed"></google-feeds>
+
+  <!-- Single feed query -->
+  <google-feeds feed="http://www.engadget.com/rss-full.xml">
+  </google-feeds>
+
+  <!-- Multiple feeds query -->
+  <google-feeds id="feeder"></google-feeds>
 
   <div></div>
-
   <script>
     var msg = document.querySelector('div');
     window.addEventListener('google-feeds-response', function(e) {
       msg.innerHTML += e.target.localName + ' loaded' + '<br>';
-      console.log(e.target.localName + ' loaded');
-      console.log(e.detail);
+      console.log(e.detail.feed);
     });
+
+    var feeder = document.getElementById("feeder");
+    feeder.feeds = ['https://news.ycombinator.com/rss',
+    'http://feeds.bbci.co.uk/news/rss.xml'];
   </script>
 </body>
 </html>
