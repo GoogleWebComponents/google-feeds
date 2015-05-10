@@ -4,7 +4,7 @@
  license that can be found in the LICENSE file.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="google-feed-api.html">
+<link rel="import" href="../google-apis/google-legacy-loader.html">
 
 <dom-module id="google-feeds">
   <template>
@@ -134,7 +134,7 @@
         } else {
           if (!this.feedsApiLoading) {
             var loaded = this.feedsApiLoaded.bind(this);
-            var loader = document.createElement('google-feed-api');
+            var loader = document.createElement('google-legacy-loader');
             loader.addEventListener('api-load', function(e) {
               google.load('feeds', '1', {callback: loaded});
             });
