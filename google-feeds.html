@@ -4,11 +4,11 @@
  license that can be found in the LICENSE file.
 -->
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../google-apis/google-js-api.html">
-<link rel="import" href="../google-apis/google-client-loader.html">
+<link rel="import" href="google-feed-api.html">
+
 <dom-module id="google-feeds">
   <template>
-    <google-js-api on-js-api-load="feedsApiLoaded"></google-js-api>
+    <div id="content"></div>
   </template>
 </dom-module>
 <script>
@@ -22,6 +22,10 @@
         type: String,
         observer: 'feedChanged'
       },
+      feeds: {
+        type: Array,
+        observer: 'feedsChanged'
+      },
       query: {
         type: String,
         observer: 'queryChanged'
@@ -33,7 +37,7 @@
       }
     },
 
-    beforeCreated: function() {
+    attached: function() {
       this.count = 32;
       this.pendingFeeds = [];
     },
@@ -43,7 +47,7 @@
         this.loading = true;
         // call fetchFeeds async to make sure any binding to count property
         // is resolved before fetchFeeds is called
-        this.static.withFeedsApi(this.fetchFeeds.bind(this));
+        this.withFeedsApi(this.fetchFeeds.bind(this));
       } else {
         this.results = null;
       }
@@ -67,6 +71,28 @@
       }
     },
 
+    feedsChanged: function() {
+      this.withFeedsApi(function(item) {
+        this.fetchMultipleFeeds(this.feeds, function(results) {
+          // TODO: Figure out why the onLoad callback
+          // isn't getting fired. Below isn't fired.
+          this.fire('google-multi-feeds-response', { feeds: results });
+        });
+      }.bind(this));
+    },
+
+    fetchMultipleFeeds: function(feeds, onLoad) {
+      var feedControl = new google.feeds.FeedControl();
+      if (feeds) {
+        feeds.forEach(function(item) {
+          feedControl.addFeed(item);
+        });
+        feedControl.setNumEntries(this.count);
+        feedControl.draw(this.$.content);
+        google.setOnLoadCallback(onLoad);
+      }
+    },
+
     queryChanged: function() {
       if (this.query) {
         this.loading = true;
@@ -86,8 +112,6 @@
         this.fire('google-feeds-queryresponse', {entries: results.entries});
       }
     },
-
-    static: {
 
       // TODO(ffu): integrate the ability to load a specific api like feeds
       // into google-jsapi.
@@ -110,8 +134,8 @@
         } else {
           if (!this.feedsApiLoading) {
             var loaded = this.feedsApiLoaded.bind(this);
-            var loader = document.createElement('google-js-api');
-            loader.addEventListener('js-api-load', function() {
+            var loader = document.createElement('google-feed-api');
+            loader.addEventListener('api-load', function(e) {
               google.load('feeds', '1', {callback: loaded});
             });
             this.feedsApiLoading = true;
@@ -121,8 +145,6 @@
           }
         }
       }
-
-    }
 
   });
 })();
