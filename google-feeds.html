@@ -129,7 +129,7 @@
       },
 
       isApiLoaded: function() {
-        return window.google && google.feeds && google.feeds.Feed;
+        return !!(window.google && google.feeds && google.feeds.Feed);
       },
 
       withFeedsApi: function(callback) {
