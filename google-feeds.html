@@ -100,7 +100,7 @@
     queryChanged: function() {
       if (this.query) {
         this.loading = true;
-        this.findFeeds();
+        this.withFeedsApi(this.findFeeds.bind(this));
       }
     },
 
