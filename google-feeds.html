@@ -100,7 +100,7 @@
     queryChanged: function() {
       if (this.query) {
         this.loading = true;
-        this.findFeeds();
+        this.withFeedsApi(this.findFeeds.bind(this));
       }
     },
 
@@ -117,38 +117,38 @@
       }
     },
 
-      // TODO(ffu): integrate the ability to load a specific api like feeds
-      // into google-jsapi.
-      feedsCallbacks: [],
+    // TODO(ffu): integrate the ability to load a specific api like feeds
+    // into google-jsapi.
+    feedsCallbacks: [],
 
-      feedsApiLoaded: function() {
-        while(this.feedsCallbacks.length) {
-          var fn = this.feedsCallbacks.shift();
-          fn();
+    feedsApiLoaded: function() {
+      while(this.feedsCallbacks.length) {
+        var fn = this.feedsCallbacks.shift();
+        fn();
+      }
+    },
+
+    isApiLoaded: function() {
+      return window.google && google.feeds && google.feeds.Feed;
+    },
+
+    withFeedsApi: function(callback) {
+      if (this.isApiLoaded() && callback) {
+        callback();
+      } else {
+        if (!this.feedsApiLoading) {
+          var loaded = this.feedsApiLoaded.bind(this);
+          var loader = document.createElement('google-legacy-loader');
+          loader.addEventListener('api-load', function(e) {
+            google.load('feeds', '1', {callback: loaded});
+          });
+          this.feedsApiLoading = true;
         }
-      },
-
-      isApiLoaded: function() {
-        return window.google && google.feeds && google.feeds.Feed;
-      },
-
-      withFeedsApi: function(callback) {
-        if (this.isApiLoaded() && callback) {
-          callback();
-        } else {
-          if (!this.feedsApiLoading) {
-            var loaded = this.feedsApiLoaded.bind(this);
-            var loader = document.createElement('google-legacy-loader');
-            loader.addEventListener('api-load', function(e) {
-              google.load('feeds', '1', {callback: loaded});
-            });
-            this.feedsApiLoading = true;
-          }
-          if (callback) {
-            this.feedsCallbacks.push(callback);
-          }
+        if (callback) {
+          this.feedsCallbacks.push(callback);
         }
       }
+    }
 
   });
 })();

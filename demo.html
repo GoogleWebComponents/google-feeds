@@ -17,6 +17,9 @@
   <google-feeds feed="http://www.engadget.com/rss-full.xml">
   </google-feeds>
 
+  <!-- Find feeds -->
+  <google-feeds query="gadgets" id="feedSearch"></google-feeds>
+
   <!-- Multiple feeds query -->
   <google-feeds id="feeder"></google-feeds>
 
@@ -28,7 +31,11 @@
       console.log(e.detail.feed);
     });
 
-    var feeder = document.getElementById("feeder");
+    window.addEventListener('google-feeds-queryresponse', function(e) {
+      console.log('findFeeds response:', e.detail.entries);
+    });
+
+    var feeder = document.getElementById('feeder');
     feeder.feeds = ['https://news.ycombinator.com/rss',
     'http://feeds.bbci.co.uk/news/rss.xml'];
   </script>
