@@ -100,7 +100,7 @@
     queryChanged: function() {
       if (this.query) {
         this.loading = true;
-        this.findFeeds();
+        this.withFeedsApi(this.findFeeds.bind(this));
       }
     },
 
@@ -129,7 +129,7 @@
       },
 
       isApiLoaded: function() {
-        return window.google && google.feeds && google.feeds.Feed;
+        return !!(window.google && google.feeds && google.feeds.Feed);
       },
 
       withFeedsApi: function(callback) {
