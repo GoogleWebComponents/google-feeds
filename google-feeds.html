@@ -26,6 +26,10 @@
         type: Array,
         observer: 'feedsChanged'
       },
+      results: {
+        type: Object,
+        notify: true
+      },
       query: {
         type: String,
         observer: 'queryChanged'
