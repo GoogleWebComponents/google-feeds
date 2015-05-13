@@ -30,26 +30,30 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
     is: "google-feeds",
 
     /**
-     Fired when feed has been loaded
-     @param {object} feed feed object
-     @event google-feeds-response
-
-     Fired when feed load fails
-     @param {string} status load status
-     @event google-feeds-error
-
-     Fired when multiple feeds have loaded successfully
-     @param {object} feeds multiple feeds
-     @event google-multi-feeds-response
-
-     Fired when feed query fails
-     @param {string} status status
-     @event 'google-feeds-queryerror'
-
-     Fired when feed query succeeds
-     @param {object} entries query results
-     @event 'google-feeds-queryresponse'
-    */
+     * Fired when feed has been loaded
+     * @param {object} feed feed object
+     * @event google-feeds-response
+     */
+    /**
+     * Fired when feed load fails
+     * @param {string} status load status
+     * @event google-feeds-error
+     */
+     /**
+      * Fired when multiple feeds have loaded successfully
+      * @param {object} feeds multiple feeds
+      * @event google-multi-feeds-response
+      */
+     /**
+      * Fired when feed query fails
+      * @param {string} status status
+      * @event google-feeds-queryerror
+      */
+     /**
+      * Fired when feed query succeeds
+      * @param {object} entries query results
+      * @event google-feeds-queryresponse
+      */
     properties: {
 
       /**
