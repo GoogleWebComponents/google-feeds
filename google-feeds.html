@@ -166,7 +166,7 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
     _queryChanged: function() {
       if (this.query) {
         this.loading = true;
-        this._findFeeds();
+        this._withFeedsApi(this._findFeeds.bind(this));
       }
     },
 
