@@ -17,6 +17,9 @@
   <google-feeds feed="http://www.engadget.com/rss-full.xml">
   </google-feeds>
 
+  <!-- Find feeds -->
+  <google-feeds query="gadgets" id="feedSearch"></google-feeds>
+
   <!-- Multiple feeds query -->
   <google-feeds id="feeder"></google-feeds>
 
@@ -26,6 +29,10 @@
     window.addEventListener('google-feeds-response', function(e) {
       msg.innerHTML += e.target.localName + ' loaded' + '<br>';
       console.log(e.detail.feed);
+    });
+
+    window.addEventListener('google-feeds-queryresponse', function(e) {
+      console.log('findFeeds response:', e.detail.entries);
     });
 
     var feeder = document.getElementById("feeder");
