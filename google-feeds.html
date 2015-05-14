@@ -3,31 +3,31 @@
  Use of this source code is governed by a BSD-style
  license that can be found in the LICENSE file.
 -->
-<link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../google-apis/google-legacy-loader.html">
+<link rel='import' href='../polymer/polymer.html'>
+<link rel='import' href='../google-apis/google-legacy-loader.html'>
 
 <!--
 Exposes [Google Feeds API](https://developers.google.com/feed/)
 
 <b>Example</b>:
 
-    <template is="dom-bind">
-      <google-feeds feed="http://www.engadget.com/rss-full.xml"
-      results="{{result}}"></google-feeds>
+    <template is='dom-bind'>
+      <google-feeds feed='http://www.engadget.com/rss-full.xml'
+      results='{{result}}''></google-feeds>
       <p>Feed title: <span>result.title</span></p>
     </template>
 
 -->
-<dom-module id="google-feeds">
+<dom-module id='google-feeds'>
   <template>
-    <div id="content"></div>
+    <div id='content'></div>
   </template>
 </dom-module>
 <script>
 (function() {
   Polymer({
 
-    is: "google-feeds",
+    is: 'google-feeds',
 
     /**
      * Fired when feed has been loaded
@@ -54,6 +54,7 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
       * @param {object} entries query results
       * @event google-feeds-queryresponse
       */
+
     properties: {
 
       /**
@@ -187,14 +188,14 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
     _feedsCallbacks: [],
 
     _feedsApiLoaded: function() {
-      while(this._feedsCallbacks.length) {
+      while (this._feedsCallbacks.length) {
         var fn = this._feedsCallbacks.shift();
         fn();
       }
     },
 
     _isApiLoaded: function() {
-      return window.google && google.feeds && google.feeds.Feed;
+      return !!(window.google && google.feeds && google.feeds.Feed);
     },
 
     _withFeedsApi: function(callback) {
