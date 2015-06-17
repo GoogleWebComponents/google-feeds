@@ -1,0 +1,34 @@
+{
+  "name": "google-feeds",
+  "homepage": "https://github.com/GoogleWebComponents/google-feeds",
+  "authors": [
+    "Addy Osmani <addyosmani@gmail.com>"
+  ],
+  "description": "Google Feeds element for Polymer",
+  "main": "google-feeds.html",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "feeds",
+    "api"
+  ],
+  "license": "Apache-2",
+  "dependencies": {
+    "polymer": "polymer/polymer#^1.0.0",
+    "google-apis": "GoogleWebComponents/google-apis#^1.0",
+    "iron-jsonp-library": "PolymerElements/iron-jsonp-library#^1.0.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.2"
+  },
+  "_release": "35d4c96faf",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "35d4c96fafb36a7cd2d62482f90540ad25f071c6"
+  },
+  "_source": "git://github.com/GoogleWebComponents/google-feeds.git",
+  "_target": "master",
+  "_originalSource": "GoogleWebComponents/google-feeds",
+  "_direct": true
+}
