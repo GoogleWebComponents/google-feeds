@@ -235,11 +235,13 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
     _format: function() {
       switch(this.format) {
         case 'json':
+        default:
           return google.feeds.Feed.JSON_FORMAT;
         case 'xml':
           return google.feeds.Feed.XML_FORMAT;
         case 'mixed':
           return google.feeds.Feed.MIXED_FORMAT;
+
       }
     }
 
