@@ -147,13 +147,12 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
         this.results = {};
         this.fire('google-feeds-error', {status: results.status});
       } else {
-        if ( results.m === google.feeds.Feed.MIXED_FORMAT ) {
+        if (results.m === google.feeds.Feed.MIXED_FORMAT) {
           results.feed.xmlDocument = results.xmlDocument;
         }
 
         this.results = results.m === google.feeds.Feed.XML_FORMAT ? results.xmlDocument : results.feed;
-
-        this.fire('google-feeds-response', {feed: results.feed || results.xmlDocument});
+        this.fire('google-feeds-response', {feed: this.results});
       }
     },
 
@@ -234,14 +233,13 @@ Exposes [Google Feeds API](https://developers.google.com/feed/)
 
     _format: function() {
       switch(this.format) {
-        case 'json':
-        default:
-          return google.feeds.Feed.JSON_FORMAT;
         case 'xml':
           return google.feeds.Feed.XML_FORMAT;
         case 'mixed':
           return google.feeds.Feed.MIXED_FORMAT;
-
+        case 'json':
+        default:
+          return google.feeds.Feed.JSON_FORMAT;
       }
     }
 
