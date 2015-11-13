@@ -14,6 +14,13 @@
     "api"
   ],
   "license": "Apache-2",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
     "polymer": "polymer/polymer#^1.0.0",
     "google-apis": "GoogleWebComponents/google-apis#^1.0",
